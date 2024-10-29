@@ -1,11 +1,11 @@
-const express = require('express')
+const express = require('express');
+const { register , login } = require('../../controllers/admin/users.controller');
+
 
 const adminUserRoutes = express.Router()
 
-adminUserRoutes.post('/register', ()=>{
-    console.log("this is register route")
-})
+adminUserRoutes.post('/register', register)
 
-adminUserRoutes.post('/login', ()=>console.log("login toute"))
+adminUserRoutes.post('/login', login)
 
-module.exports = adminUserRoutes
+module.exports = adminUserRoutes;
