@@ -1,4 +1,9 @@
-import { IconBell, IconShoppingCart, IconUser } from "@tabler/icons-react";
+import {
+  IconBell,
+  IconHeart,
+  IconShoppingCart,
+  IconUser,
+} from "@tabler/icons-react";
 import SearchBar from "./SearchBar";
 import LanguageDropdown from "./LanguageDropdown";
 
@@ -14,6 +19,10 @@ export default function Navbar() {
         <span className="rounded-[50%] border border-zinc-600 bg-gray-200 text-black flex justify-center items-center p-1 cursor-pointer hover:!bg-gray-300 transition-all duration-200">
           <IconBell size={20} />
         </span>
+        <div className="flex gap-1 justify-between cursor-pointer text-black items-center">
+          <IconHeart size={20} />
+          <span className="text-lg font-medium">Wishlist</span>
+        </div>
         <div className="flex gap-1 justify-between cursor-pointer text-black items-center">
           <IconUser size={20} />
           <span className="text-lg font-medium">Account</span>
