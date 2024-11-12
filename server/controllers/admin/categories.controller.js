@@ -78,4 +78,56 @@ async function deleteCategoryById(req, res) {
     });
   }
 }
-module.exports = { createCategory, getAllCategories, deleteCategoryById};
+
+async function addSubCategory(req, res) {
+  try {
+    const { subcategories } = req.body;
+    const subCategoryId = req.params.categoryId;
+
+    console.log(subcategories,subCategoryId)
+    // Check if both categoryId and subcategories are provided
+    if (!subCategoryId || !subcategories) {
+      return res.status(400).json({ message: "Category ID and subcategory name are required." });
+    }
+
+    // const category = await CategoryModel.findById(subCategoryId);
+    // if (!category) {
+    //   return res.status(404).json({ message: "Category not found." });
+    // }
+
+    // // Check if subcategory already exists
+    // const subcategoryExists = category.subcategories.some(
+    //   (subcat) => subcat.name === subcategories
+    // );
+
+    // if (subcategoryExists) {
+    //   return res.status(400).json({ message: "Subcategory name already exists." });
+    // }
+
+    // // Add new subcategory if it doesn't exist
+    // category.subcategories.push({ name: subcategories });
+    // const updatedCategory = await category.save();
+
+    const updatedCategory = await CategoryModel.findOneAndUpdate(
+      { _id: subCategoryId, "subcategories.name": { $ne: subcategories } }, // Ensure subcategory doesn't exist
+      { $push: { subcategories: { name: subcategories } } }, // Add subcategory
+      { new: true } // Return the updated category
+    );
+
+    if (!updatedCategory) {
+      return res.status(404).json({ message: "Duplicate subcategory entry." });
+    }
+
+    res.status(200).json({
+      message: "Subcategory added successfully",
+      data: updatedCategory,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to add subcategory",
+      error: error.message,
+    });
+  }
+}
+
+module.exports = { createCategory, getAllCategories, deleteCategoryById, addSubCategory};
