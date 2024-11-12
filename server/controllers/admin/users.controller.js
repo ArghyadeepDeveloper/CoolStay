@@ -91,4 +91,43 @@ async function login(req, res, next) {
   }
 }
 
-module.exports = { register, login };
+async function uploadProfilePicture(req, res, next) {
+      console.log(req.file)
+}
+
+async function updateProfilePicture(req, res) {
+  try {
+    console.log(req.file)
+    console.log(req.user)
+    const { _id, type } = req.user; // Assuming `id` and `type` are in `req.user` from authentication middleware
+    const  profilePicUrl  = req.file.filename; // `profilePicUrl` should be in the request body
+    console.log(profilePicUrl)
+    if (!profilePicUrl) {
+      return res.status(400).json({ message: "Profile picture URL is required" });
+    }
+
+    // Find user by `id` and `type`, then update `profilePicUrl`
+    const updatedUser = await UserModel.findOneAndUpdate(
+      { _id: _id, type: type },             // Match user by `id` and `type`
+      { profilePicUrl: profilePicUrl },     // Update `profilePicUrl`
+      { new: true }                         // Return the updated document
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({
+      message: "Profile picture updated successfully",
+      user: updatedUser
+    });
+  } catch (error) {
+    let errorMessage = handleMongooseError(error)
+    res.status(500).json({
+      message: errorMessage,
+      error: error.message
+    });
+  }
+}
+
+module.exports = { register, login, uploadProfilePicture, updateProfilePicture };

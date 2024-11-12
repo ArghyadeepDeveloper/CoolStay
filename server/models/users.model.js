@@ -38,6 +38,10 @@ const userSchema = new mongoose.Schema({
         enum: ["0", "1", "2"], // 0 = Admin, 1 = Property Owner, 2 = Customer
         required: true,
     },
+    profilePicUrl: {
+        type: String,
+        default:null
+    }
 }, {
     timestamps: true, // Automatically adds createdAt and updatedAt timestamps
 });
