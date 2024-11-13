@@ -3,6 +3,8 @@ const cors = require('cors');
 const adminUserRoutes = require('./routes/admin/users.route');
 const connectToDatabase = require('./database/connection');
 const categoryRoutes = require('./routes/admin/categories.route');
+const brandRoutes = require('./routes/admin/brands.route');
+const productRoutes = require('./routes/seller/products.route');
 
 // Load environment variables from .env
 require('dotenv').config();
@@ -21,6 +23,8 @@ app.use('/uploads', express.static('uploads'));
 
 app.use("/admin", adminUserRoutes);
 app.use("/admin", categoryRoutes);
+app.use("/admin", brandRoutes);
+app.use("/seller",productRoutes);
 
 // Use PORT from environment variable
 const PORT = process.env.PORT || 3000;
