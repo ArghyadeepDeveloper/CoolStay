@@ -5,7 +5,9 @@ export default function UserLayout() {
   return (
     <div className="min-h-screen">
       <Navbar />
-      <Outlet />
+      <div className="mx-[50px]" id="main-container">
+        <Outlet />
+      </div>
     </div>
   );
 }

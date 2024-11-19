@@ -9,7 +9,7 @@ export default function UserCartPage() {
     {
       id: 0,
       name: "T shirt",
-      color: "black",
+      color: "Black",
       rating: 4.3,
       image: tShirtImage,
       quantity: 2,
@@ -40,10 +40,10 @@ export default function UserCartPage() {
   return (
     <div className="flex flex-col flex-start p-4 gap-5">
       <header className="font-semibold text-2xl">My Cart</header>
-      <div className="flex xs:flex-col sm:flex-col md:flex-row items-center justify-center w-full">
-        <div className="border border-gray-200 rounded-sm xs:w-full sm:w-full md:w-full lg:w-3/5">
+      <div className="flex xs:flex-col sm:flex-col md:flex-row items-center justify-between w-full">
+        <div className="border border-gray-200 xs:w-full sm:w-full md:w-full lg:w-3/5 rounded-md">
           {cartItems.map((item) => (
-            <div className="flex justify-between items-center  p-4">
+            <div className="flex justify-between items-center p-4">
               <div className="flex p-6 gap-6" key={item.id}>
                 <img
                   src={item.image}
@@ -51,8 +51,8 @@ export default function UserCartPage() {
                 />
                 <div className="flex flex-col items-start">
                   <span className="text-lg font-medium">{item.name}</span>
-                  <span className="text-regular">{item.color}</span>
-                  <div className="flex gap-2 text-lg font-semibold">
+                  <span className="font-medium">{item.color}</span>
+                  <div className="flex gap-2 text-xl font-semibold my-2">
                     <span>₹{item.discountedPrice}</span>{" "}
                     <span className="line-through">₹{item.originalPrice}</span>
                   </div>
